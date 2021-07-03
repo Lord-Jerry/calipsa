@@ -15,3 +15,4 @@
 * Install Docker-compose [https://docs.docker.com/compose/install/]
 * ` cd <project directory> && docker-compose build && docker-compose up -d && cd client && yarn && yarn start`
 * open http://localhost:3000/ in your browser
+* Run test `docker-compose exec server npm run test`
