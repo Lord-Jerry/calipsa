@@ -1,4 +1,5 @@
 const { filterAlarmsWithLocation, getAlarmsWithLocation } = require('../services/event');
+const { isBoolean } = require('../helpers');
 
 const getAllEvents = (req, res, next) => {
     try {
@@ -6,7 +7,7 @@ const getAllEvents = (req, res, next) => {
         const { date_from, date_to, outcome, page } = req.query;
         const result =
             // eslint-disable-next-line camelcase
-            (date_from && date_to) || outcome
+            (date_from && date_to) || isBoolean(outcome)
                 ? filterAlarmsWithLocation(date_from, date_to, outcome, page)
                 : getAlarmsWithLocation(page);
 
