@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { getAllEvents, filterEvents } = require('../controller/event');
-const { validateGetAllRoute, validateFilterRoute } = require('../helpers/validations');
+const { getAllEvents } = require('../controller/event');
+const { validateGetAllRoute } = require('../helpers/validations');
 
 const ApiRoutes = () => {
     const route = Router();
@@ -12,7 +12,6 @@ const ApiRoutes = () => {
     );
 
     route.get('/alarm/get-all', validateGetAllRoute, getAllEvents);
-    route.get('/alarm/filter', validateFilterRoute, filterEvents);
 
     return route;
 };

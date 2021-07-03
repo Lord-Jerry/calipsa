@@ -50,4 +50,4 @@ const filterAlarmsWithLocation = (from, to, outcome, page = 1) => {
     return filteredAlarms;
 };
 
-module.exports = { getAlarmsWithLocation, filterAlarmsWithLocation };
+module.exports = { filterAlarmsWithLocation, getAlarmsWithLocation };

@@ -44,7 +44,7 @@ test('should fetch 100 filtered alarm events that match filter', async () => {
     const date_to = '2021-04-02T23:59:56.339Z';
     const outcome = false;
     await request(server)
-        .get('/api/v1/alarm/filter')
+        .get('/api/v1/alarm/get-all')
         .set('token', Buffer.from('hey').toString('base64'))
         .query({
             date_from,
