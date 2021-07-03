@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
@@ -6,11 +8,15 @@ const logger = require('../helpers/logger');
 const { validateAuth } = require('../helpers');
 const routes = require('./routes');
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '../../access.log'), {
+    flags: 'a',
+});
+
 const apiLoader = (app) => {
     app.enable('trust proxy');
     app.use(cors());
     app.use(express.json());
-    app.use(morgan('dev'));
+    app.use(morgan('combined', { stream: accessLogStream }));
 
     app.use((req, _, next) => {
         const { token } = req.headers;
