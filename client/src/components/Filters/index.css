@@ -1,0 +1,17 @@
+.filter-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2em;
+}
+
+.next-page-button{ 
+    float: right;
+    margin-top: 1em !important;
+}
+
+.prev-page-button{ 
+    float: left;
+    margin-top: 1em !important;
+}
+
+  

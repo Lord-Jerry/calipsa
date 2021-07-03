@@ -1,0 +1,9 @@
+.table-container {
+  max-width: 1400px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.table-container div .MTableToolbar-root-5 {
+  min-height: 0;
+}
