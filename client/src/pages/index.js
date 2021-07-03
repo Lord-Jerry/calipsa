@@ -2,17 +2,34 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import MaterialTable from "material-table";
 import Filters from "../components/Filters";
+import Modal from "../components/Modal";
 import { useFetchAlarmEvents } from "../hooks/event";
 import "./index.css";
 
-const columns = () => [
+const columns = (openModal) => [
   { title: "Location", field: "locationName" },
   { title: "Outcome", field: "outcome" },
   { title: "Time", field: "timestamp" },
+  {
+    title: "Action",
+    field: "action",
+    render: (rowData) =>
+      rowData && (
+        <Button
+          onClick={() => openModal(rowData)}
+          variant="contained"
+          color="secondary"
+        >
+          View
+        </Button>
+      ),
+  },
 ];
 function App() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalData, setModalData] = useState({});
   // eslint-disable-next-line
   const [_, setErrors] = useState([]);
   const [data, setData] = useState({ data: [] });
@@ -47,11 +64,17 @@ function App() {
     window.scroll(0, 0);
   };
 
+  const toogleModal = (data) => {
+    setModalData(data);
+    setOpenModal(!openModal);
+  };
+
   useEffect(() => {
     fetchAlarmEvents(page, {});
   }, []);
   return (
     <div className="table-container">
+      <Modal open={openModal} setOpen={setOpenModal} data={modalData} />
       <Filters
         from={from}
         to={to}
@@ -61,10 +84,10 @@ function App() {
         setOutcome={setOutcome}
         submitFilter={submitFilter}
       />
-      
+
       {/** table**/}
       <MaterialTable
-        columns={columns()}
+        columns={columns(toogleModal)}
         isLoading={loading}
         data={
           data &&
@@ -97,6 +120,7 @@ function App() {
         variant="contained"
         color="primary"
         disableElevation
+        disabled={data && data.data.length === 0}
       >
         Next page
       </Button>
